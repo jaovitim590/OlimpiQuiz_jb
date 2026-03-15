@@ -3038,3 +3038,18 @@ export function getModalidadesCard() {
     icon,
   }));
 }
+
+ 
+export function getPerguntasAleatorias(
+  modalidadeId: string,
+  dificuldade?: Dificuldade
+): Pergunta[] {
+  const modalidade = modalidades.find((m) => m.id === modalidadeId);
+  if (!modalidade) return [];
+
+  const pool = dificuldade
+    ? modalidade.perguntas.filter((p) => p.dificuldade === dificuldade)
+    : modalidade.perguntas;
+
+  return [...pool].sort(() => Math.random() - 0.5);
+}
