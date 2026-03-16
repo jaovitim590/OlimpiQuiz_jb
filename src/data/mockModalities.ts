@@ -3044,6 +3044,16 @@ export function getPerguntasAleatorias(
   modalidadeId: string,
   dificuldade?: Dificuldade
 ): Pergunta[] {
+  if (modalidadeId === "666") {
+    const todasPerguntas = modalidades.flatMap((m) => m.perguntas);
+
+    const pool = dificuldade
+      ? todasPerguntas.filter((p) => p.dificuldade === dificuldade)
+      : todasPerguntas;
+
+    return [...pool].sort(() => Math.random() - 0.5);
+  }
+
   const modalidade = modalidades.find((m) => m.id === modalidadeId);
   if (!modalidade) return [];
 
