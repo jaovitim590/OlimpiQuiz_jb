@@ -1,4 +1,4 @@
-import { CardGrid } from "../components/dificultySelector/cardGrid";
+import { CardGrid } from "../components/dificultySelector/CardGrid";
 
 export const DificultySelector = () => {
   return <CardGrid />;
