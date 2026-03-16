@@ -34,7 +34,7 @@ export const Home = () => {
 
       <ButtonLink
         label="COMEÇAR"
-        destiny="/modos"
+        destiny="/modalidades"
         className="px-18 py-5 text-4xl"
       />
       <div className="flex gap-8 md:gap-16 mt-4">
