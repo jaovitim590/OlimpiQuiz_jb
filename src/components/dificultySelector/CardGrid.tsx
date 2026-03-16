@@ -1,18 +1,34 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { getModalidade } from "../../data/mockModalities";
+import { getModalidade, modalidades } from "../../data/mockModalities";
 import type { Dificuldade } from "../../data/mockModalities";
 import { DifficultyCard } from "./DifficultyCard";
 
 const DIFICULDADES: Dificuldade[] = ["facil", "medio", "dificil"];
 
+const MODO_GERAL = {
+  titulo: "MODO GERAL",
+  descricao: "Perguntas de todas as modalidades olímpicas.",
+};
+
 export const CardGrid = () => {
   const { modality } = useParams<{ modality: string }>();
   const navigate = useNavigate();
-  const modalidade = getModalidade(modality ?? "");
 
-  const totalPorDificuldade = (dificuldade: Dificuldade) =>
-    modalidade?.perguntas.filter((p) => p.dificuldade === dificuldade).length ??
-    0;
+  const isGeral = modality === "666";
+  const modalidade = isGeral ? MODO_GERAL : getModalidade(modality ?? "");
+
+  const totalPorDificuldade = (dificuldade: Dificuldade) => {
+    if (isGeral) {
+      return modalidades
+        .flatMap((m) => m.perguntas)
+        .filter((p) => p.dificuldade === dificuldade).length;
+    }
+    return (
+      getModalidade(modality ?? "")?.perguntas.filter(
+        (p) => p.dificuldade === dificuldade,
+      ).length ?? 0
+    );
+  };
 
   return (
     <div className="flex flex-col items-center justify-center px-6 py-12 gap-8 w-full">

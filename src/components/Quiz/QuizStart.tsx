@@ -1,5 +1,5 @@
-import { getModalidade } from "../../data/mockModalities";
-import { ArrowRight, Undo2 } from "lucide-react";
+import { getModalidade, modalidades } from "../../data/mockModalities";
+import { ArrowRight, Undo2, Globe } from "lucide-react";
 import type { Dificuldade } from "../../data/mockModalities";
 import { ButtonLink } from "../ButtonLink";
 
@@ -9,14 +9,23 @@ interface QuizStartProps {
   onStart: () => void;
 }
 
-export const QuizStart = ({ modality, dificulty, onStart }: QuizStartProps) => {
-  const modalidade = getModalidade(modality);
-  const Icon = modalidade?.icon;
+const MODO_GERAL = {
+  titulo: "MODO GERAL",
+  descricao: "Perguntas de todas as modalidades olímpicas.",
+};
 
-  const totalPerguntas =
-    modalidade?.perguntas.filter(
-      (p) => p.dificuldade === (dificulty as Dificuldade),
-    ).length ?? 0;
+export const QuizStart = ({ modality, dificulty, onStart }: QuizStartProps) => {
+  const isGeral = modality === "666";
+  const modalidade = isGeral ? MODO_GERAL : getModalidade(modality);
+  const Icon = isGeral ? Globe : getModalidade(modality)?.icon;
+
+  const totalPerguntas = isGeral
+    ? modalidades
+        .flatMap((m) => m.perguntas)
+        .filter((p) => p.dificuldade === (dificulty as Dificuldade)).length
+    : (getModalidade(modality)?.perguntas.filter(
+        (p) => p.dificuldade === (dificulty as Dificuldade),
+      ).length ?? 0);
 
   const difficultyLabel =
     {
@@ -60,8 +69,9 @@ export const QuizStart = ({ modality, dificulty, onStart }: QuizStartProps) => {
 
       <ButtonLink
         destiny={`/dificuldade/${modality}`}
-        label="voltar"
+        label="VOLTAR"
         icon={Undo2}
+        iconPosition="left"
         variant="outline"
       />
     </div>
