@@ -59,7 +59,7 @@ export const QuizStart = ({ modality, dificulty, onStart }: QuizStartProps) => {
       </button>
 
       <ButtonLink
-        destiny={`/${modality}`}
+        destiny={`/dificuldade/${modality}`}
         label="voltar"
         icon={Undo2}
         variant="outline"
