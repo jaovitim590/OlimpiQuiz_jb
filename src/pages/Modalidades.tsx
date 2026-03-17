@@ -14,7 +14,15 @@ export const Modalidades = () => {
         className="flex flex-wrap gap-4 justify-center"
         onClick={() => navigate(`/dificuldade/666`)}
       >
-        <div className="flex flex-col items-center justify-center gap-2 bg-red-600 rounded-xl w-3/14 h-30 shadow shadow-indigo-900 hover:scale-105 transition">
+        <div
+          className="
+    flex flex-col items-center justify-center gap-2
+    bg-red-600 rounded-xl shadow shadow-indigo-900
+    hover:scale-105 transition cursor-pointer
+    w-full sm:w-64 h-28 sm:h-32
+    px-4 py-4
+  "
+        >
           <h3 className="font-display text-2xl">Ultra quiz</h3>
           <Skull size={34} />
         </div>
